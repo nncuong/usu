@@ -99,7 +99,7 @@ class listener implements EventSubscriberInterface
 		$this->request = $request;
 		$this->db = $db;
 		$this->language = $language;
-		$this->phpbb_root_path = $phpbb_root_path;
+		$this->phpbb_root_path = $this->core->seo_path['root_url'];
 		$this->php_ext = $php_ext;
 	}
 
