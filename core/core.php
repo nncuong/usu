@@ -265,9 +265,6 @@ class core
 		// and apparently, the bug is still here in php5.3
 		@ini_set("mbstring.internal_encoding", 'UTF-8');
 
-		// reset the rewrite_method for $phpbb_root_path
-		$this->rewrite_method[$this->phpbb_root_path] = [];
-
 		if (!empty($this->seo_opt['rewrite_files']))
 		{
 			// phpBB files must be treated a bit differently
@@ -340,6 +337,9 @@ class core
 		$this->seo_path['phpbb_files'] = $this->seo_path['phpbb_url'] . 'download/';
 		$this->seo_path['canonical'] = '';
 
+		// reset the rewrite_method for $phpbb_root_path
+		$this->rewrite_method[$this->seo_path['root_url']] = [];
+
 		// magic quotes, do it like this in case phpbbseo class is not started in common.php
 		if (!defined('STRIP'))
 		{
@@ -410,7 +410,7 @@ class core
 		// Rewrite functions array : array('path' => array('file_name' => 'function_name'));
 		// Warning, this way of doing things is path aware, this implies path to be properly sent to append_sid()
 		// Allow to add options without slowing down the URL rewriting process
-		$this->rewrite_method[$this->phpbb_root_path] = array_merge(
+		$this->rewrite_method[$this->seo_path['root_url']] = array_merge(
 			[
 				'viewtopic'		=> 'viewtopic',
 				'viewforum'		=> 'viewforum',
@@ -418,7 +418,7 @@ class core
 				'memberlist'		=> 'memberlist',
 				'search'		=> $this->seo_opt['rewrite_usermsg'] ? 'search' : '',
 			],
-			$this->rewrite_method[$this->phpbb_root_path]
+			$this->rewrite_method[$this->seo_path['root_url']]
 		);
 
 		if (!empty($this->seo_opt['rewrite_files']))
